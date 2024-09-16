@@ -1,0 +1,205 @@
+<html> 
+
+ 
+ 
+
+ <body> 
+
+ 
+ 
+
+<!-- To use postMessage, merchant must include the following script on iFrame parent page --> 
+
+<!-- Merchant must make sure that hpfParent.min.js script loads before the iFrame is loaded --> 
+
+<!-- Merchant also make sure that they are not loading it with the “async” or “defer” 
+
+attributes. --> 
+
+ 
+ 
+
+  <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script> 
+
+ 
+ 
+ 
+
+<!-- Sandbox environment: --> 
+
+<script src="https://chase-var.hostedpaymentservice.net/includes/hpfParent.min.js"></script> 
+
+ 
+ 
+
+<!-- The following functions are used by postMessage --> 
+
+<script> 
+
+function handlePaymentErrors(data) { 
+
+  alert( "postMessage function handlePaymentErrors is called. \nError: " + Object.values(data) 
+
+ ); 
+
+} 
+
+ 
+ 
+
+function completePayment(data) { 
+
+  alert("postMessage function completePayment is called. \n Response:"+ Object.values(data) ); 
+
+ 
+ 
+
+  // Contract is broken, no uid 
+
+  alert(data.uID); 
+
+ 
+ 
+
+  $.ajax( 
+
+    {  
+
+      type: "POST", 
+
+      url: "https://chase-var.hostedpaymentservice.net/api/query", 
+
+      dataType: 'json', 
+
+      data: { 
+
+        "secure_id": "chs714170465443SANDBOX", 
+
+        "api_key": "ka29NbHZ0U1ghpeY15Y1TtMbEKrlHKE1", 
+
+        "uid": "IETHCBJ36A1YSH0XITE4SB3TW0EPC5O4" 
+
+      }, 
+
+      xhrFields: { 
+
+           withCredentials: false 
+
+      }, 
+
+      crossDomain: false, 
+
+      //beforeSend: function(xhr) { 
+
+      //      xhr.setRequestHeader("Cookie", "session=xxxyyyzzz"); 
+
+      //}, 
+
+      success: function(xhr){ 
+
+        console.log(xhr); 
+
+           alert('success'); 
+
+      }, 
+
+      error: function (xhr) { 
+
+        console.log(xhr); 
+
+         alert(xhr.responseText); 
+
+      } 
+
+    } 
+
+  ); 
+
+} 
+
+function hpfReady() { 
+
+  console.log("HPF Form finished loading."); 
+
+} 
+
+ 
+ 
+ 
+
+function scrollRelay(scrollX, scrollY) { 
+
+  console.log("Scroll X: "+scrollX+ "\nScroll Y: "+scrollY); 
+
+} 
+
+function startPayment() { 
+
+  console.log("Payment processing start."); 
+
+} 
+
+ 
+ 
+
+function cancelPayment() { 
+
+ alert("postMessage function cancelPayment is called. \n You have canceled the payment."); 
+
+} 
+
+ 
+ 
+
+</script> 
+
+ 
+ 
+
+<div> Example cc: 4111111111111111 
+
+</div> 
+
+ 
+ 
+
+<div id="secureFrameWrapper"> 
+
+ <iframe id="secureFrame" class="secureFrame" style="border:1px dashed slategrey; background-color:#f4f4f4;" height="270px" width="400px"  
+
+   src="https://chase-var.hostedpaymentservice.net/hpf/?uid=R3WTU3UI5ZB6LM0VRBVRGUZB2EI1WDPB"> 
+
+ </iframe> 
+
+</div> 
+
+<div> 
+
+ 
+ 
+
+   <form> 
+
+       <input type="text" name="email address" /> 
+
+      <input type="button" value="Update Primerica email" /> 
+
+   </form> 
+
+</div> 
+
+ 
+ 
+
+ </body> 
+
+ 
+ 
+
+</html> 
+
+ 
+
+ 
+
+ 
